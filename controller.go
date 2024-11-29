@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"time"
 )
 
 type Controller struct {
@@ -32,6 +33,11 @@ func (c *Controller) CreateUrl(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
+
+	now := time.Now()
+
+	url.CreatedAt = now
+	url.UpdatedAt = now
 
 	err = c.Repository.Create(&url, r.Context())
 	if err != nil {
