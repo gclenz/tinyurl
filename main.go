@@ -30,6 +30,7 @@ func main() {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("POST /urls", controller.CreateUrl)
+	mux.HandleFunc("GET /urls/{id}", controller.GetUrl)
 	mux.HandleFunc("GET /healthz", controller.Healthz)
 
 	err := http.ListenAndServe(fmt.Sprintf(":%s", port), mux)

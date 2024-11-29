@@ -43,3 +43,15 @@ func (c *Controller) CreateUrl(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
 	w.Write([]byte(fmt.Sprintf("{\"shortId\": \"%s\"}", url.ID)))
 }
+
+func (c *Controller) GetUrl(w http.ResponseWriter, r *http.Request) {
+	id := r.PathValue("id")
+
+	url, err := c.Repository.FindByID(id, r.Context())
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	http.Redirect(w, r, url.Url, http.StatusSeeOther)
+}
