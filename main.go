@@ -11,7 +11,7 @@ import (
 )
 
 type UrlData struct {
-	ID        string    `json:"id"`
+	ID        string    `json:"id,omitempty"`
 	Url       string    `json:"url"`
 	CreatedAt time.Time `json:"createdAt,omitempty"`
 	UpdatedAt time.Time `json:"updatedAt,omitempty"`

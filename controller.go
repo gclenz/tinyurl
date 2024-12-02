@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log/slog"
+	"math/rand"
 	"net/http"
 	"time"
 )
@@ -36,7 +37,9 @@ func (c *Controller) CreateUrl(w http.ResponseWriter, r *http.Request) {
 	}
 
 	now := time.Now()
+	rnd := rand.New(rand.NewSource(time.Now().UnixNano()))
 
+	url.ID = fmt.Sprintf("%d", rnd.Uint32())[:6]
 	url.CreatedAt = now
 	url.UpdatedAt = now
 
