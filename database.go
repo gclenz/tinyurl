@@ -29,7 +29,7 @@ func GetDatabaseConnection() *sql.DB {
 
 var (
 	InsertUrlQuery      = "insert into urls (id, url, created_at, updated_at) values ($1, $2, $3, $4);"
-	SelectUrlByIDQuery  = "select id, url, created_at, updated_at from users where id = $1;"
+	SelectUrlByIDQuery  = "select id, url, created_at, updated_at from urls where id = $1;"
 	UpdateUserCodeQuery = "update urls set url = $1 where id = $2;"
 )
 
