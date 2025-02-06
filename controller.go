@@ -21,7 +21,7 @@ func NewController(repo *UrlRepository) *Controller {
 
 func (c *Controller) Healthz(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
-	w.Write(nil)
+	w.Write([]byte("Allu"))
 }
 
 func (c *Controller) CreateUrl(w http.ResponseWriter, r *http.Request) {
