@@ -10,7 +10,7 @@ import (
 )
 
 type HCInfo struct {
-	ServerTime  time.Time `json:"uptime"`
+	ServerTime  time.Time `json:"serverTime"`
 	Description string    `json:"description"`
 }
 
