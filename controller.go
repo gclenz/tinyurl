@@ -9,6 +9,11 @@ import (
 	"time"
 )
 
+type HCInfo struct {
+	ServerTime  time.Time `json:"uptime"`
+	Description string    `json:"description"`
+}
+
 type Controller struct {
 	Repository *UrlRepository
 }
@@ -20,8 +25,19 @@ func NewController(repo *UrlRepository) *Controller {
 }
 
 func (c *Controller) Healthz(w http.ResponseWriter, r *http.Request) {
+	hcInfo := HCInfo{
+		ServerTime:  time.Now().UTC(),
+		Description: "Ok!",
+	}
+
+	result, err := json.Marshal(&hcInfo)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write(nil)
+	}
+
 	w.WriteHeader(http.StatusOK)
-	w.Write(nil)
+	w.Write(result)
 }
 
 func (c *Controller) CreateUrl(w http.ResponseWriter, r *http.Request) {
