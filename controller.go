@@ -46,7 +46,7 @@ func (c *Controller) CreateUrl(w http.ResponseWriter, r *http.Request) {
 	err = c.Repository.Create(&url, r.Context())
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		slog.Error("Controller(Create) error:", err)
+		slog.Error("Controller(Create)", "details", err)
 		return
 	}
 
@@ -60,7 +60,7 @@ func (c *Controller) GetUrl(w http.ResponseWriter, r *http.Request) {
 
 	url, err := c.Repository.FindByID(id, r.Context())
 	if err != nil {
-		slog.Error("Controller(GetUrl) error:", err)
+		slog.Error("Controller(GetUrl)", "details", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}

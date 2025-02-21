@@ -14,13 +14,13 @@ import (
 func GetDatabaseConnection() *sql.DB {
 	db, err := sql.Open("pgx", os.Getenv("DATABASE_URL"))
 	if err != nil {
-		slog.Error("Unable to connect to databse: %v", err)
+		slog.Error("Unable to connect to databse", "details", err)
 		os.Exit(1)
 	}
 
 	err = db.Ping()
 	if err != nil {
-		slog.Error("Unable to ping databse: %v", err)
+		slog.Error("Unable to ping databse", "details", err)
 		os.Exit(1)
 	}
 
@@ -54,7 +54,7 @@ func (ur *UrlRepository) Create(urlData *UrlData, ctx context.Context) error {
 	)
 
 	if err != nil {
-		slog.Error("Repository(Create) error:", err)
+		slog.Error("Repository(Create)", "details", err)
 		if strings.Contains(err.Error(), "duplicate key") {
 			return ErrDuplicatedKey
 		}
@@ -72,7 +72,7 @@ func (ur *UrlRepository) FindByID(urlID string, ctx context.Context) (*UrlData, 
 	)
 	err := row.Err()
 	if err != nil {
-		slog.Error("Repository(FindByID) error:", err)
+		slog.Error("Repository(FindByID)", "details", err)
 		return nil, err
 	}
 
@@ -84,7 +84,7 @@ func (ur *UrlRepository) FindByID(urlID string, ctx context.Context) (*UrlData, 
 		&urlData.UpdatedAt,
 	)
 	if err != nil {
-		slog.Error("Repository(FindByID) error:", err)
+		slog.Error("Repository(FindByID)", "details", err)
 		return nil, err
 	}
 
